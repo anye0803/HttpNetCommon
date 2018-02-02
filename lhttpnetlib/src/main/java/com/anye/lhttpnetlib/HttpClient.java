@@ -8,10 +8,10 @@ import com.anye.lhttpnetlib.util.NetworkUtils;
 import com.anye.lhttpnetlib.util.StringUtils;
 import com.anye.lhttpnetlib.util.ToastUtils;
 import com.anye.lhttpnetlib.util.Utils;
-import com.franmontiel.persistentcookiejar.ClearableCookieJar;
-import com.franmontiel.persistentcookiejar.PersistentCookieJar;
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+//import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+//import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+//import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+//import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,14 +62,14 @@ public class HttpClient {
     }
 
     private HttpClient() {
-        ClearableCookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(Utils.getContext()));
+//        ClearableCookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(Utils.getContext()));
         //HttpsUtil.SSLParams sslParams = HttpsUtil.getSslSocketFactory(Utils.getContext(), R.raw.cer,STORE_PASS , STORE_ALIAS);
         okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(10000L, TimeUnit.MILLISECONDS)
                 //.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
                 // .hostnameVerifier(HttpsUtil.getHostnameVerifier())
                 .addInterceptor(new LoggerInterceptor(null, true))
-                .cookieJar(cookieJar)
+//                .cookieJar(cookieJar)
                 .build();
     }
 
