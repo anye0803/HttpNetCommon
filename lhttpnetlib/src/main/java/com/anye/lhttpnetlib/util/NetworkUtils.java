@@ -6,8 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
-
-import com.orhanobut.logger.Logger;
+import android.util.Log;
 
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -26,6 +25,7 @@ import java.util.concurrent.Future;
  */
 public class NetworkUtils {
 
+    private static final String MyTag = "NetworkUtils";
     private NetworkUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
@@ -82,10 +82,10 @@ public class NetworkUtils {
         ShellUtils.CommandResult result = ShellUtils.execCmd("ping -c 1 -w 1 223.5.5.5", false);
         boolean ret = result.result == 0;
         if (result.errorMsg != null) {
-            Logger.d("isAvailableByPing errorMsg", result.errorMsg);
+            Log.d(MyTag, "isAvailableByPing errorMsg" + result.errorMsg);
         }
         if (result.successMsg != null) {
-            Logger.d("isAvailableByPing successMsg", result.successMsg);
+            Log.d(MyTag, "isAvailableByPing successMsg" + result.successMsg);
         }
         return ret;
     }

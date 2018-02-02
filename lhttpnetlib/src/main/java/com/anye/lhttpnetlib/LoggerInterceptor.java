@@ -1,8 +1,7 @@
 package com.anye.lhttpnetlib;
 
 import android.text.TextUtils;
-
-import com.orhanobut.logger.Logger;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -47,7 +46,7 @@ public class LoggerInterceptor implements Interceptor {
             String url = request.url().toString();
             Headers headers = request.headers();
 
-            Logger.d("method : " + request.method() + "  ║  url : " + url);
+            Log.d(TAG,"method : " + request.method() + "  ║  url : " + url);
             if (headers != null && headers.size() > 0) {
                 //Logger.d("headers : " + headers.toString());
             }
@@ -56,9 +55,8 @@ public class LoggerInterceptor implements Interceptor {
             if (requestBody != null) {
                 MediaType mediaType = requestBody.contentType();
                 if (mediaType != null) {
-                    //Logger.d("requestBody's contentType : " + mediaType.toString());
                     if (isText(mediaType)) {
-                        Logger.d("requestBody's content : " + bodyToString(request));
+                        Log.d(TAG,"requestBody's content : " + bodyToString(request));
                     } else {
                         //Logger.e("requestBody's content : " + " maybe [file part] , too large too print , ignored!");
                     }
@@ -73,7 +71,7 @@ public class LoggerInterceptor implements Interceptor {
         try {
             Response.Builder builder = response.newBuilder();
             Response clone = builder.build();
-            Logger.d("url : " + clone.request().url() + "  ║  code : " + clone.code() + "  ║  protocol : " + clone.protocol());
+            Log.d(TAG,"url : " + clone.request().url() + "  ║  code : " + clone.code() + "  ║  protocol : " + clone.protocol());
             if (!TextUtils.isEmpty(clone.message()))
                 //Logger.d("message : " + clone.message());
 
@@ -86,21 +84,22 @@ public class LoggerInterceptor implements Interceptor {
                             if (isText(mediaType)) {
                                 String resp = body.string();
                                 //打印json格式或者xml格式日志
-                                switch (mediaType.subtype()) {
-                                    case "xml":
-                                        Logger.xml(resp);
-                                        break;
-                                    case "json":
-                                        Logger.json(resp);
-                                        break;
-                                    default:
-                                        Logger.d(resp);
-                                        break;
-                                }
+                                Log.i(TAG, resp);
+//                                switch (mediaType.subtype()) {
+//                                    case "xml":
+//                                        Logger.xml(resp);
+//                                        break;
+//                                    case "json":
+//                                        Logger.json(resp);
+//                                        break;
+//                                    default:
+//                                        Logger.d(resp);
+//                                        break;
+//                                }
                                 body = ResponseBody.create(mediaType, resp);
                                 return response.newBuilder().body(body).build();
                             } else {
-                                Logger.e("responseBody's content : " + " maybe [file part] , too large too print , ignored!");
+                                Log.e(TAG,"responseBody's content : " + " maybe [file part] , too large too print , ignored!");
                             }
                         }
                     }

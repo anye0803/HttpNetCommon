@@ -2,6 +2,7 @@ package com.anye.lhttpnetlib;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.anye.lhttpnetlib.util.NetworkUtils;
 import com.anye.lhttpnetlib.util.StringUtils;
@@ -11,8 +12,6 @@ import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
-import com.orhanobut.logger.Logger;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -323,7 +322,7 @@ public class HttpClient {
                 onResultListener.onSuccess(DataParseUtil.parseXml(data, clazz));
                 break;
             default:
-                Logger.e("http parse tip:", "if you want return object, please use bodyType() set data type");
+                Log.e("http parse tip:", "if you want return object, please use bodyType() set data type");
                 break;
         }
     }
